@@ -66,6 +66,23 @@ class LayoutDriftTest(unittest.TestCase):
         errors = sync_layouts.check(self.root)
         self.assertTrue(any("not a symlink" in item for item in errors))
 
+    def test_sync_removes_an_obsolete_held_symlink(self) -> None:
+        sync_layouts.sync(self.root)
+        extra = self.root / ".claude" / "skills" / "secret"
+        extra.symlink_to(os.path.relpath(self.root / "held" / "secret", extra.parent))
+        sync_layouts.sync(self.root)
+        self.assertFalse(extra.exists())
+        self.assertEqual(sync_layouts.check(self.root), [])
+
+    def test_sync_refuses_to_delete_a_real_extra_directory(self) -> None:
+        sync_layouts.sync(self.root)
+        extra = self.root / ".cursor" / "skills" / "notes"
+        extra.mkdir()
+        (extra / "SKILL.md").write_text("keep\n", encoding="utf-8")
+        with self.assertRaises(SystemExit):
+            sync_layouts.sync(self.root)
+        self.assertEqual((extra / "SKILL.md").read_text(encoding="utf-8"), "keep\n")
+
     def test_check_fails_when_a_held_skill_is_linked(self) -> None:
         sync_layouts.sync(self.root)
         extra = self.root / ".claude" / "skills" / "secret"

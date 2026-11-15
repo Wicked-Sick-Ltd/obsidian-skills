@@ -12,20 +12,17 @@ Held in `held/` and not linked: `obsidian-cli`, `obsidian-headless`, `defuddle`,
 
 Details: [REVIEW.md](REVIEW.md) and [docs/PORTING.md](docs/PORTING.md).
 
-Install this fork instead of the upstream commands below:
+Install a checkout of `wicked-main`. The repository default branch is `main`, which still has every upstream skill, so `owner/repo` marketplace commands install the held skills.
 
 ```sh
-claude plugin marketplace add Wicked-Sick-Ltd/obsidian-skills
-claude plugin install obsidian@obsidian-skills
+git clone --branch wicked-main --single-branch https://github.com/Wicked-Sick-Ltd/obsidian-skills.git
+cd obsidian-skills
+claude --plugin-dir "$PWD"
+codex plugin marketplace add "$PWD"
+gemini extensions install "$PWD"
 ```
 
-```sh
-codex plugin marketplace add Wicked-Sick-Ltd/obsidian-skills
-```
-
-```sh
-gemini extensions install https://github.com/Wicked-Sick-Ltd/obsidian-skills --ref wicked-main
-```
+Gemini can also install the branch directly: `gemini extensions install https://github.com/Wicked-Sick-Ltd/obsidian-skills --ref wicked-main`.
 
 The upstream install commands are kept below so the fork can be compared with `obsidianmd/obsidian-skills`.
 

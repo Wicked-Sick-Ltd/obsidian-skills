@@ -4,16 +4,16 @@ Skills for Obsidian Flavored Markdown, Bases, and JSON Canvas.
 
 ## Install
 
-In Claude Code, from this fork:
+Clone `wicked-main` and point the tool at that checkout. The repository default branch is `main`, which still contains the held skills, so an `owner/repo` marketplace add installs those too.
 
+```sh
+git clone --branch wicked-main --single-branch https://github.com/Wicked-Sick-Ltd/obsidian-skills.git
+cd obsidian-skills
+claude --plugin-dir "$PWD"
+codex plugin marketplace add "$PWD"
 ```
-/plugin marketplace add Wicked-Sick-Ltd/obsidian-skills
-/plugin install obsidian@obsidian-skills
-```
 
-In Codex, run `codex plugin marketplace add Wicked-Sick-Ltd/obsidian-skills`, then install Obsidian from the plugin directory.
-
-In Cursor, install from a checkout of this repository. Project skills are also linked at `.cursor/skills/`. See [docs/PORTING.md](../../docs/PORTING.md).
+In Cursor, open that checkout. Project skills are linked at `.cursor/skills/`. See [docs/PORTING.md](../../docs/PORTING.md).
 
 ## Included skills
 

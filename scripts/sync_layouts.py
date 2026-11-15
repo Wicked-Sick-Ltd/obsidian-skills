@@ -114,6 +114,19 @@ def ensure_symlink(link: Path, target: str) -> None:
     link.symlink_to(target)
 
 
+def remove_obsolete_links(root: Path) -> None:
+    """Drop leftover symlinks. A real extra file is left alone and fails check."""
+    for layout in LAYOUTS:
+        directory = root / layout
+        if not directory.is_dir():
+            continue
+        for entry in list(directory.iterdir()):
+            if entry.name in PASSING:
+                continue
+            if entry.is_symlink():
+                entry.unlink()
+
+
 def sync(root: Path) -> None:
     errors = validate(root, layouts_ready=False)
     structural = [item for item in errors if not item.startswith("layout:") and not item.startswith("generated:")]
@@ -121,11 +134,17 @@ def sync(root: Path) -> None:
         raise SystemExit("\n".join(structural))
     ensure_symlink(root / GEMINI_LINK, CANONICAL.as_posix())
     for layout in LAYOUTS:
+        directory = root / layout
+        directory.mkdir(parents=True, exist_ok=True)
         for skill in PASSING:
-            ensure_symlink(root / layout / skill, expected_skill_target(layout, skill))
+            ensure_symlink(directory / skill, expected_skill_target(layout, skill))
+    remove_obsolete_links(root)
     version = plugin_version(root)
     (root / "gemini-extension.json").write_text(render_gemini(version), encoding="utf-8")
     (root / "AGENTS.md").write_text(render_agents(root), encoding="utf-8")
+    drifted = check(root)
+    if drifted:
+        raise SystemExit("\n".join(drifted))
 
 
 def validate(root: Path, layouts_ready: bool = True) -> list[str]:

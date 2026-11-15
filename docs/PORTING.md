@@ -40,6 +40,8 @@ python3 scripts/sync_layouts.py check
 python3 -m unittest tests/test_sync_layouts.py
 ```
 
+`sync` replaces a passing symlink that points at the wrong place, deletes a symlink whose name is not in the passing set, and then runs `check`. A real extra file is left in place, and `sync` exits with the `check` error instead of deleting it.
+
 `check` fails when:
 
 - `plugins/obsidian/skills/` is not exactly the passing set, or a passing skill's frontmatter `name` does not match its directory
