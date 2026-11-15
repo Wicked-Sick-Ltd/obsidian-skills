@@ -2,7 +2,7 @@
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "obsidian",
   "version": "1.2.0",
-  "description": "Work with local Obsidian vaults using the Obsidian CLI and skills for Markdown, Bases, Canvas, Sync and Publish, web extraction, and templates.",
+  "description": "Create and edit Obsidian Flavored Markdown, Bases, and JSON Canvas files.",
   "author": {
     "name": "Obsidian",
     "url": "https://obsidian.md/"
@@ -23,14 +23,14 @@
       "requires_local_executor": true,
       "interface": {
         "displayName": "Obsidian",
-        "shortDescription": "Work with your local vault",
-        "longDescription": "Search, read, create, and organize notes in a local Obsidian vault. Create and edit Obsidian Markdown with links, properties, and callouts. This plugin also lets you build Bases views, Canvas diagrams, extract web pages to Markdown, render templates, and sync and publish vaults with Obsidian Headless.\n\nThis plugin is currently desktop-only and requires Obsidian to be open and running with the CLI enabled. In the future we will add MCP so you can interact with your vault remotely and in the ChatGPT mobile app.",
+        "shortDescription": "Write Obsidian notes, Bases, and Canvas",
+        "longDescription": "Create and edit Obsidian Flavored Markdown, Bases views, and JSON Canvas files. The skills describe file formats. They do not run the Obsidian CLI, fetch web pages, render templates, or sync and publish a vault.",
         "category": "Productivity",
         "developerName": "Obsidian",
         "defaultPrompt": [
-          "Find notes about my current project and summarize the open tasks.",
-          "Create a reading list Base from the books in my vault.",
-          "Make a Canvas connecting the main ideas in these notes."
+          "Create a project note with wikilinks, a status property, and a warning callout.",
+          "Create a reading list Base with table and card views.",
+          "Make a Canvas connecting three ideas with labeled edges."
         ],
         "websiteURL": "https://obsidian.md/",
         "supportURL": "https://obsidian.md/help/",
@@ -46,18 +46,14 @@
       "review": {
         "commerce": false,
         "prompts": [
-          "Search my selected vault for project notes and summarize their open tasks with links to the sources.",
-          "Create a note in my selected vault with a summary, related-note links, and a status property.",
-          "Create a reading list Base with table and card views from the books in my selected vault.",
-          "Create a Canvas with three idea cards and labeled connections in my selected vault.",
-          "Extract this public article into Markdown and save it as a note in my selected vault.",
-          "Use my supplied Knap template and JSON data to create a note in my selected vault.",
-          "Read a note using the CLI while Obsidian is closed and explain what is needed to continue."
+          "Create a note with a summary, related-note wikilinks, and a status property.",
+          "Create a reading list Base with table and card views.",
+          "Create a Canvas with three idea cards and labeled connections."
         ]
       },
       "publication": {
         "countries": [],
-        "release_notes": "Adds an Obsidian Headless skill to sync and publish vaults without the desktop app, kanban views in Bases, and fixes for Bases display names and the CLI on WSL."
+        "release_notes": "Wicked Sick fork of upstream 1.2.0. Installs Obsidian Flavored Markdown, Bases, and JSON Canvas. The CLI, Headless, Defuddle, and Knap skills are kept in held/ and are not installed."
       }
     }
   }

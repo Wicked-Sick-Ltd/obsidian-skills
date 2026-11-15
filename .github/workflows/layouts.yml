@@ -1,0 +1,17 @@
+name: layouts
+
+on:
+  pull_request:
+  push:
+    branches:
+      - wicked-main
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if generated skill layouts drift
+        run: python3 scripts/sync_layouts.py check
+      - name: Layout drift tests
+        run: python3 -m unittest tests/test_sync_layouts.py
