@@ -46,6 +46,12 @@ To use ssh instead, if you have a GitHub SSH key set up:
 npx skills add git@github.com:obsidianmd/obsidian-skills.git
 ```
 
+### Gemini CLI
+
+```sh
+gemini extensions install https://github.com/obsidianmd/obsidian-skills --auto-update
+```
+
 ### Manually
 
 #### Claude Code

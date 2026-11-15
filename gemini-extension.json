@@ -1,0 +1,7 @@
+{
+  "name": "obsidian-skills",
+  "version": "1.2.0",
+  "description": "Work with local Obsidian vaults using the Obsidian CLI and skills for Markdown, Bases, Canvas, Sync and Publish, web extraction, and templates.",
+  "repository": "https://github.com/obsidianmd/obsidian-skills",
+  "license": "MIT"
+}
