@@ -34,6 +34,18 @@ def repo_root_from_script() -> Path:
     return Path(__file__).resolve().parents[1]
 
 
+BLOCK_SCALARS = {">", ">-", ">+", "|", "|-", "|+"}
+
+
+def parse_scalar(value: str, path: Path, key: str) -> str:
+    value = value.strip()
+    if value in BLOCK_SCALARS:
+        raise ValueError(f"{path} {key} uses a block scalar, which skill frontmatter does not support")
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in {'"', "'"}:
+        return value[1:-1]
+    return value
+
+
 def read_frontmatter(text: str, path: Path) -> dict[str, str]:
     if not text.startswith("---\n"):
         raise ValueError(f"{path} is missing frontmatter")
@@ -45,7 +57,8 @@ def read_frontmatter(text: str, path: Path) -> dict[str, str]:
         if not line.strip() or line.startswith(" ") or ":" not in line:
             continue
         key, value = line.split(":", 1)
-        data[key.strip()] = value.strip()
+        key = key.strip()
+        data[key] = parse_scalar(value, path, key)
     return data
 
 
