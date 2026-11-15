@@ -90,6 +90,13 @@ class LayoutDriftTest(unittest.TestCase):
         errors = sync_layouts.check(self.root)
         self.assertTrue(any("secret" in item for item in errors))
 
+    def test_check_reports_a_missing_description_without_raising(self) -> None:
+        sync_layouts.sync(self.root)
+        skill = self.root / sync_layouts.CANONICAL / "alpha" / "SKILL.md"
+        skill.write_text("---\nname: alpha\n---\n\n# alpha\n", encoding="utf-8")
+        errors = sync_layouts.check(self.root)
+        self.assertTrue(any("description" in item for item in errors))
+
     def test_check_fails_when_frontmatter_name_drifts(self) -> None:
         skill = self.root / sync_layouts.CANONICAL / "alpha" / "SKILL.md"
         skill.write_text("---\nname: wrong\ndescription: Write alpha files.\n---\n\n# alpha\n", encoding="utf-8")

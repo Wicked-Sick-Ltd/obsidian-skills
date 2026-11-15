@@ -90,7 +90,10 @@ def render_agents(root: Path) -> str:
     for skill in PASSING:
         path = root / CANONICAL / skill / "SKILL.md"
         meta = read_frontmatter(path.read_text(encoding="utf-8"), path)
-        lines.append(f"| `{skill}` | {meta['description']} |")
+        description = meta.get("description", "")
+        if not description:
+            raise ValueError(f"{path} description is empty")
+        lines.append(f"| `{skill}` | {description} |")
     lines.append("")
     return "\n".join(lines)
 

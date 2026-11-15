@@ -86,6 +86,7 @@ Copy the three passing skill directories from `plugins/obsidian/skills/` into `~
 
 ```sh
 git clone --depth 1 --branch wicked-main https://github.com/Wicked-Sick-Ltd/obsidian-skills.git /tmp/obsidian-skills
+mkdir -p ~/.opencode/skills
 cp -R /tmp/obsidian-skills/plugins/obsidian/skills/* ~/.opencode/skills/
 ```
 
